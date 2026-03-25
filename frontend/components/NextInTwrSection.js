@@ -26,7 +26,7 @@ export default function NextInTwrSection() {
   };
 
   return (
-    <section className="mt-24">
+    <section className="mt-24 border-t border-white/5 pt-8">
       <div className="mx-auto max-w-3xl space-y-6 text-center">
         <div className="space-y-3">
           <h2 className="text-3xl font-semibold tracking-tight text-white">✍️ What&apos;s next in TWR</h2>
