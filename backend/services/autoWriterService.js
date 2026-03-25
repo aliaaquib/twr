@@ -93,6 +93,7 @@ const runStartupAutoWriterCheck = async () => {
 };
 
 module.exports = {
+  publishWeeklyArticleIfMissing,
   runStartupAutoWriterCheck,
   startWeeklyAutoWriter,
 };

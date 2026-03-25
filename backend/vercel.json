@@ -1,0 +1,20 @@
+{
+  "version": 2,
+  "functions": {
+    "api/**/*.js": {
+      "runtime": "@vercel/node"
+    }
+  },
+  "crons": [
+    {
+      "path": "/api/cron/weekly",
+      "schedule": "42 17 * * 3"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.js"
+    }
+  ]
+}
