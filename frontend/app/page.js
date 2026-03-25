@@ -1,6 +1,8 @@
 import ArticlesList from "@/components/ArticlesList";
+import Footer from "@/components/Footer";
 import FeaturedCard from "@/components/FeaturedCard";
 import HotPanel from "@/components/HotPanel";
+import NextInTwrSection from "@/components/NextInTwrSection";
 import NextArticleCountdown from "@/components/NextArticleCountdown";
 import NewsletterCard from "@/components/NewsletterCard";
 import TodaysFactCard from "@/components/TodaysFactCard";
@@ -67,6 +69,9 @@ export default async function HomePage() {
           <TodaysFactCard posts={allPosts} />
         </aside>
       </div>
+
+      <NextInTwrSection />
+      <Footer />
     </div>
   );
 }
