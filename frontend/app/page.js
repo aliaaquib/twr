@@ -1,6 +1,7 @@
 import ArticlesList from "@/components/ArticlesList";
 import Footer from "@/components/Footer";
 import FeaturedCard from "@/components/FeaturedCard";
+import HeroSubscribeCard from "@/components/HeroSubscribeCard";
 import HotPanel from "@/components/HotPanel";
 import NextInTwrSection from "@/components/NextInTwrSection";
 import NextArticleCountdown from "@/components/NextArticleCountdown";
@@ -21,16 +22,25 @@ export default async function HomePage() {
   return (
     <div className="mx-auto max-w-7xl">
       <section className="pb-10 pt-4">
-        <div className="inline-flex rounded-full border border-stone-200 bg-stone-100 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-stone-500 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-400">
-          Weekly editorial brief
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1.7fr)_minmax(320px,1fr)] lg:items-start">
+          <div>
+            <div className="inline-flex rounded-full border border-stone-200 bg-stone-100 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-stone-500 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-400">
+              Weekly editorial brief
+            </div>
+            <h1 className="mt-6 max-w-4xl text-5xl font-semibold tracking-[-0.05em] text-stone-900 dark:text-stone-100 sm:text-6xl">
+              A sharper read on the week in AI.
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-stone-600 dark:text-stone-400">
+              Featured analysis at the top, weekly issues underneath, and a fast-moving panel of
+              what the ecosystem is talking about right now.
+            </p>
+          </div>
+
+          <div className="lg:pt-2">
+            <HeroSubscribeCard />
+          </div>
         </div>
-        <h1 className="mt-6 max-w-4xl text-5xl font-semibold tracking-[-0.05em] text-stone-900 dark:text-stone-100 sm:text-6xl">
-          A sharper read on the week in AI.
-        </h1>
-        <p className="mt-6 max-w-2xl text-lg leading-8 text-stone-600 dark:text-stone-400">
-          Featured analysis at the top, weekly issues underneath, and a fast-moving panel of
-          what the ecosystem is talking about right now.
-        </p>
+
         <div className="mt-8 h-px w-full bg-stone-200 dark:bg-stone-700" />
       </section>
 
