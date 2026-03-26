@@ -6,14 +6,14 @@ const STORAGE_KEY = "twr-theme";
 
 const getInitialTheme = () => {
   if (typeof window === "undefined") {
-    return "dark";
+    return "light";
   }
 
-  return window.localStorage.getItem(STORAGE_KEY) || "dark";
+  return window.localStorage.getItem(STORAGE_KEY) || "light";
 };
 
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState("light");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {

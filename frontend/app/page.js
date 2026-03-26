@@ -78,7 +78,9 @@ export default async function HomePage() {
 
         <aside className="space-y-6">
           <HotPanel items={hotItems} />
-          <NewsletterCard />
+          <div id="subscribe">
+            <NewsletterCard />
+          </div>
           <TodaysFactCard posts={allPosts} />
         </aside>
       </div>

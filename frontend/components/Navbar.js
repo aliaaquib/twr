@@ -12,7 +12,7 @@ const NAV_ITEMS = [
   { href: "/topics", label: "Topics" },
 ];
 
-export default function Navbar() {
+export default function Navbar({ onSubscribe }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -49,11 +49,22 @@ export default function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="transition hover:text-stone-900 dark:hover:text-white"
+                  className={
+                    item.label === "Subscribe"
+                      ? "inline-flex items-center justify-center rounded-full bg-stone-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-stone-800 dark:bg-stone-100 dark:text-stone-950 dark:hover:bg-white"
+                      : "transition hover:text-stone-900 dark:hover:text-white"
+                  }
                 >
                   {item.label}
                 </Link>
               ))}
+              <button
+                type="button"
+                onClick={onSubscribe}
+                className="inline-flex items-center justify-center rounded-full bg-stone-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-stone-800 dark:bg-stone-100 dark:text-stone-950 dark:hover:bg-white"
+              >
+                Subscribe
+              </button>
               <div className="ml-2 shrink-0">
                 <ThemeToggle />
               </div>
@@ -68,11 +79,25 @@ export default function Navbar() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className="block rounded-lg px-2 py-2 transition hover:bg-stone-100 hover:text-stone-900 dark:hover:bg-stone-900 dark:hover:text-white"
+                className={
+                  item.label === "Subscribe"
+                    ? "mt-2 inline-flex w-full items-center justify-center rounded-full bg-stone-900 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-stone-800 dark:bg-stone-100 dark:text-stone-950 dark:hover:bg-white"
+                    : "block rounded-lg px-2 py-2 transition hover:bg-stone-100 hover:text-stone-900 dark:hover:bg-stone-900 dark:hover:text-white"
+                }
               >
                 {item.label}
               </Link>
             ))}
+            <button
+              type="button"
+              onClick={() => {
+                setIsOpen(false);
+                onSubscribe();
+              }}
+              className="mt-2 inline-flex w-full items-center justify-center rounded-full bg-stone-900 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-stone-800 dark:bg-stone-100 dark:text-stone-950 dark:hover:bg-white"
+            >
+              Subscribe
+            </button>
           </nav>
         ) : null}
       </div>
