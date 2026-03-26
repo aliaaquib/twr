@@ -37,36 +37,36 @@ export default async function PostPage({ params }) {
   }
 
   return (
-    <article className="mx-auto max-w-[760px] rounded-[36px] border border-white/10 bg-white/[0.04] px-6 py-10 shadow-[0_24px_64px_rgba(0,0,0,0.25)] backdrop-blur sm:px-10 sm:py-14">
+    <article className="mx-auto max-w-[760px] rounded-2xl border border-stone-200 bg-white px-6 py-10 dark:border-stone-800 dark:bg-[linear-gradient(180deg,rgba(34,30,27,0.98),rgba(24,21,19,0.98))] dark:ring-1 dark:ring-inset dark:ring-stone-800/80 sm:px-10 sm:py-14">
       <div className="flex flex-wrap items-center gap-3">
-        <div className="text-sm font-medium text-white/45">{post.week}</div>
+        <div className="text-sm font-medium text-stone-500 dark:text-stone-400">{post.week}</div>
         {post.isFeatured ? (
-          <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#9aa6ff]">
+          <span className="rounded-full border border-stone-300 bg-stone-100 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-stone-600 dark:border-stone-700 dark:bg-stone-950 dark:text-stone-300">
             Featured
           </span>
         ) : null}
       </div>
-      <h1 className="mt-4 text-4xl font-semibold tracking-[-0.04em] text-white sm:text-5xl">
+      <h1 className="mt-4 text-4xl font-semibold tracking-[-0.04em] text-stone-900 dark:text-stone-100 sm:text-5xl">
         {post.title}
       </h1>
-      <div className="mt-4 text-sm text-white/38">{formatDate(post.createdAt)}</div>
+      <div className="mt-4 text-sm text-stone-500 dark:text-stone-400">{formatDate(post.createdAt)}</div>
 
       <div className="mt-12 space-y-12">
         <section className="space-y-4">
-          <h2 className="text-2xl font-semibold tracking-tight text-white">This week in AI</h2>
-          <p className="text-lg leading-9 text-white/72">{post.thisWeek}</p>
+          <h2 className="text-2xl font-semibold tracking-tight text-stone-900 dark:text-stone-100">This week in AI</h2>
+          <p className="text-lg leading-relaxed text-stone-700 dark:text-stone-300">{post.thisWeek}</p>
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-2xl font-semibold tracking-tight text-white">
+          <h2 className="text-2xl font-semibold tracking-tight text-stone-900 dark:text-stone-100">
             One idea that matters
           </h2>
-          <p className="text-lg leading-9 text-white/72">{post.idea}</p>
+          <p className="text-lg leading-relaxed text-stone-700 dark:text-stone-300">{post.idea}</p>
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-2xl font-semibold tracking-tight text-white">Signals</h2>
-          <ul className="space-y-3 pl-5 text-lg leading-8 text-white/72 marker:text-[#92a0ff]">
+          <h2 className="text-2xl font-semibold tracking-tight text-stone-900 dark:text-stone-100">Signals</h2>
+          <ul className="space-y-3 pl-5 text-lg leading-relaxed text-stone-700 marker:text-stone-500 dark:text-stone-300 dark:marker:text-stone-400">
             {post.signals.map((signal, index) => (
               <li key={`${post._id}-signal-${index}`}>{signal}</li>
             ))}

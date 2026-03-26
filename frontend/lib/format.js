@@ -35,16 +35,16 @@ export const getTagClasses = (tag) => {
   const normalized = String(tag || "").toUpperCase();
 
   if (normalized === "BREAKTHROUGH") {
-    return "bg-emerald-500/16 text-emerald-300 ring-1 ring-inset ring-emerald-400/20";
+    return "bg-stone-100 text-stone-700 ring-1 ring-inset ring-stone-300 dark:bg-stone-800 dark:text-stone-300 dark:ring-stone-700";
   }
 
   if (normalized === "DRAMA") {
-    return "bg-orange-500/16 text-orange-200 ring-1 ring-inset ring-orange-300/20";
+    return "bg-stone-100 text-stone-700 ring-1 ring-inset ring-stone-300 dark:bg-stone-800 dark:text-stone-300 dark:ring-stone-700";
   }
 
   if (normalized === "TOOL") {
-    return "bg-sky-500/16 text-sky-200 ring-1 ring-inset ring-sky-300/20";
+    return "bg-stone-100 text-stone-700 ring-1 ring-inset ring-stone-300 dark:bg-stone-800 dark:text-stone-300 dark:ring-stone-700";
   }
 
-  return "bg-white/10 text-white/70 ring-1 ring-inset ring-white/10";
+  return "bg-stone-100 text-stone-700 ring-1 ring-inset ring-stone-300 dark:bg-stone-800 dark:text-stone-300 dark:ring-stone-700";
 };

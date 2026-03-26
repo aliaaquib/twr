@@ -17,11 +17,11 @@ export default function HotPanel({ items }) {
   const hiddenCount = Math.max(items.length - 5, 0);
 
   return (
-    <section className="rounded-[28px] border border-white/10 bg-white/5 p-6 shadow-[0_24px_64px_rgba(0,0,0,0.24)] backdrop-blur">
+    <section className="rounded-xl border border-stone-200 bg-stone-50 p-4 dark:border-stone-800 dark:bg-[linear-gradient(180deg,rgba(34,30,27,0.98),rgba(24,21,19,0.98))] dark:ring-1 dark:ring-inset dark:ring-stone-800/80">
       <div className="flex items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-semibold tracking-tight text-white">What&apos;s hot in AI</h2>
-          <p className="mt-2 text-sm leading-6 text-white/55">
+          <h2 className="text-xl font-semibold tracking-tight text-stone-900 dark:text-stone-100">What&apos;s hot in AI</h2>
+          <p className="mt-2 text-sm leading-relaxed text-stone-600 dark:text-stone-400">
             A quick pulse on the links, launches, and debates shaping the week.
           </p>
         </div>
@@ -29,7 +29,7 @@ export default function HotPanel({ items }) {
 
       <div className="mt-6 space-y-4">
         {items.length === 0 ? (
-          <div className="rounded-[22px] border border-dashed border-white/10 bg-black/20 p-5 text-sm text-white/45">
+          <div className="rounded-xl border border-dashed border-stone-300 bg-transparent p-5 text-sm text-stone-500 dark:border-stone-800 dark:text-stone-400">
             No updates yet
           </div>
         ) : null}
@@ -45,8 +45,8 @@ export default function HotPanel({ items }) {
             <div className="flex items-start gap-3">
               <span className="mt-0.5 text-lg">{SOURCE_ICONS[item.source] || "🔥"}</span>
               <div className="min-w-0 flex-1">
-                <h3 className="text-sm font-medium leading-6 text-white">{item.title}</h3>
-                <div className="mt-3 text-xs text-white/40">
+                <h3 className="text-sm font-medium leading-6 text-stone-900 dark:text-stone-100">{item.title}</h3>
+                <div className="mt-3 text-xs text-stone-500 dark:text-stone-400">
                   {item.tag} • {item.source} • {formatDate(item.createdAt)}
                 </div>
               </div>
@@ -58,7 +58,7 @@ export default function HotPanel({ items }) {
           <button
             type="button"
             onClick={() => setIsExpanded((current) => !current)}
-            className="pt-2 text-sm text-white/58 transition hover:text-white"
+            className="pt-2 text-sm text-stone-500 transition hover:text-stone-900 dark:text-stone-400 dark:hover:text-white"
           >
             {isExpanded ? "Show less ↑" : `Show ${hiddenCount} more →`}
           </button>

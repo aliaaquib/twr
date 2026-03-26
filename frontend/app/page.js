@@ -21,28 +21,31 @@ export default async function HomePage() {
   return (
     <div className="mx-auto max-w-7xl">
       <section className="pb-10 pt-4">
-        <div className="inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/55">
+        <div className="inline-flex rounded-full border border-stone-200 bg-stone-100 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-stone-500 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-400">
           Weekly editorial brief
         </div>
-        <h1 className="mt-6 max-w-4xl text-5xl font-semibold tracking-[-0.05em] text-white sm:text-6xl">
+        <h1 className="mt-6 max-w-4xl text-5xl font-semibold tracking-[-0.05em] text-stone-900 dark:text-stone-100 sm:text-6xl">
           A sharper read on the week in AI.
         </h1>
-        <p className="mt-6 max-w-2xl text-lg leading-8 text-white/56">
+        <p className="mt-6 max-w-2xl text-lg leading-8 text-stone-600 dark:text-stone-400">
           Featured analysis at the top, weekly issues underneath, and a fast-moving panel of
           what the ecosystem is talking about right now.
         </p>
-        <div className="mt-8 h-px w-full bg-white/8" />
+        <div className="mt-8 h-px w-full bg-stone-200 dark:bg-stone-700" />
       </section>
 
       <div className="grid gap-8 lg:grid-cols-[minmax(0,2fr)_minmax(300px,1fr)]">
         <div className="space-y-8">
           {posts.length > 0 ? (
-            <div className="flex items-center justify-between gap-4 text-sm text-white/56">
-              <h3 className="flex items-center gap-2 text-xl font-semibold tracking-tight text-white sm:text-2xl">
+            <div className="flex items-center justify-between gap-4 text-sm text-stone-500 dark:text-stone-400">
+              <h3 className="flex items-center gap-2 text-xl font-semibold tracking-tight text-stone-900 dark:text-stone-100 sm:text-2xl">
                 <span>📚</span>
                 <span>Explore</span>
               </h3>
-              <a href="#all-articles" className="text-sm transition hover:text-white">
+              <a
+                href="#all-articles"
+                className="text-sm transition hover:text-stone-900 dark:hover:text-white"
+              >
                 all articles
               </a>
             </div>

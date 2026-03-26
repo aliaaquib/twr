@@ -20,7 +20,7 @@ export default function ArticlesList({ posts }) {
   }, [hasMoreThanDefault, posts, showAll]);
 
   if (totalCount === 0) {
-    return <div className="py-8 text-sm text-white/45">No articles yet</div>;
+    return <div className="py-8 text-sm text-stone-500 dark:text-stone-400">No articles yet</div>;
   }
 
   return (
@@ -33,7 +33,7 @@ export default function ArticlesList({ posts }) {
         <button
           type="button"
           onClick={() => setShowAll((current) => !current)}
-          className="pt-4 text-sm text-white/58 transition hover:text-white"
+          className="pt-4 text-sm text-stone-500 transition hover:text-stone-900 dark:text-stone-400 dark:hover:text-white"
         >
           {showAll ? "show fewer articles" : `read all ${totalCount} articles`}
         </button>

@@ -250,31 +250,31 @@ export default function AdminPanel() {
 
   if (isCheckingSession) {
     return (
-      <div className="mx-auto flex max-w-[700px] flex-col items-center rounded-[32px] border border-line bg-white p-12 text-center shadow-card">
-        <span className="h-8 w-8 animate-spin rounded-full border-2 border-line border-t-accent" />
-        <p className="mt-5 text-base text-muted">Loading admin workspace...</p>
+      <div className="mx-auto flex max-w-[700px] flex-col items-center rounded-2xl border border-stone-200 bg-white p-12 text-center dark:border-stone-700 dark:bg-stone-900">
+        <span className="h-8 w-8 animate-spin rounded-full border-2 border-stone-300 border-t-stone-700 dark:border-stone-700 dark:border-t-stone-200" />
+        <p className="mt-5 text-base text-stone-600 dark:text-stone-400">Loading admin workspace...</p>
       </div>
     );
   }
 
   if (!isAuthenticated) {
     return (
-      <div className="mx-auto max-w-[520px] rounded-[32px] border border-line bg-white p-8 shadow-card sm:p-10">
+      <div className="mx-auto max-w-[520px] rounded-2xl border border-stone-200 bg-white p-8 dark:border-stone-700 dark:bg-stone-900 sm:p-10">
         <div className="text-center">
-          <div className="inline-flex rounded-full border border-line bg-paper px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-muted">
+          <div className="inline-flex rounded-full border border-stone-300 bg-stone-100 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-stone-500 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-400">
             Admin Access
           </div>
-          <h1 className="mt-6 text-4xl font-semibold tracking-[-0.04em] text-ink">
+          <h1 className="mt-6 text-4xl font-semibold tracking-[-0.04em] text-stone-900 dark:text-stone-100">
             Sign in to publish the next roundup
           </h1>
-          <p className="mt-4 text-base leading-7 text-muted">
+          <p className="mt-4 text-base leading-relaxed text-stone-600 dark:text-stone-400">
             Use the admin password configured in your backend environment.
           </p>
         </div>
 
         <form onSubmit={handleLogin} className="mt-10 space-y-5">
           <div className="space-y-2">
-            <label htmlFor="password" className="text-sm font-medium text-ink">
+            <label htmlFor="password" className="text-sm font-medium text-stone-800 dark:text-stone-200">
               Admin password
             </label>
             <input
@@ -282,13 +282,13 @@ export default function AdminPanel() {
               type="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              className="w-full rounded-2xl border border-line bg-paper px-4 py-3 text-base text-ink outline-none transition focus:border-accent"
+              className="w-full rounded-xl border border-stone-300 bg-stone-50 px-4 py-3 text-base text-stone-900 outline-none transition focus:border-stone-500 dark:border-stone-600 dark:bg-stone-800 dark:text-stone-100"
               placeholder="Enter password"
             />
           </div>
 
           {errorMessage ? (
-            <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            <div className="rounded-2xl border border-stone-300 bg-stone-100 px-4 py-3 text-sm text-stone-700 dark:border-stone-600 dark:bg-stone-800 dark:text-stone-300">
               {errorMessage}
             </div>
           ) : null}
@@ -296,7 +296,7 @@ export default function AdminPanel() {
           <button
             type="submit"
             disabled={isSubmitting || !password.trim()}
-            className="inline-flex w-full items-center justify-center rounded-full bg-ink px-6 py-4 text-sm font-medium text-white transition hover:bg-black disabled:cursor-not-allowed disabled:opacity-70"
+            className="inline-flex w-full items-center justify-center rounded-full bg-stone-900 px-6 py-4 text-sm font-medium text-white transition hover:bg-stone-800 disabled:cursor-not-allowed disabled:opacity-70 dark:bg-white dark:text-black dark:hover:opacity-90"
           >
             {isSubmitting ? "Checking password..." : "Enter admin panel"}
           </button>
@@ -307,23 +307,23 @@ export default function AdminPanel() {
 
   return (
     <div className="mx-auto max-w-[700px] space-y-8">
-      <section className="rounded-[32px] border border-line bg-white p-8 shadow-card sm:p-10">
+      <section className="rounded-2xl border border-stone-200 bg-white p-8 dark:border-stone-700 dark:bg-stone-900 sm:p-10">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <div className="inline-flex rounded-full border border-line bg-paper px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-muted">
+            <div className="inline-flex rounded-full border border-stone-300 bg-stone-100 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-stone-500 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-400">
               Admin Dashboard
             </div>
-            <h1 className="mt-5 text-4xl font-semibold tracking-[-0.04em] text-ink">
+            <h1 className="mt-5 text-4xl font-semibold tracking-[-0.04em] text-stone-900 dark:text-stone-100">
               Publish a new weekly issue
             </h1>
-            <p className="mt-3 text-base leading-7 text-muted">
+            <p className="mt-3 text-base leading-relaxed text-stone-600 dark:text-stone-400">
               Create structured editorial posts and manage the archive from one place.
             </p>
           </div>
           <button
             type="button"
             onClick={handleLogout}
-            className="inline-flex items-center justify-center rounded-full border border-line px-5 py-3 text-sm font-medium text-ink transition hover:bg-paper"
+            className="inline-flex items-center justify-center rounded-full border border-stone-300 px-5 py-3 text-sm font-medium text-stone-800 transition hover:bg-stone-100 dark:border-stone-700 dark:text-stone-200 dark:hover:bg-stone-800"
           >
             Sign out
           </button>
@@ -331,19 +331,19 @@ export default function AdminPanel() {
 
         <form onSubmit={handleCreatePost} className="mt-10 space-y-6">
           <div className="space-y-2">
-            <label htmlFor="title" className="text-sm font-medium text-ink">
+            <label htmlFor="title" className="text-sm font-medium text-stone-800 dark:text-stone-200">
               Title
             </label>
             <input
               id="title"
               value={draft.title}
               onChange={(event) => updateField("title", event.target.value)}
-              className="w-full rounded-2xl border border-line bg-paper px-4 py-3 text-base text-ink outline-none transition focus:border-accent"
+              className="w-full rounded-xl border border-stone-300 bg-stone-50 px-4 py-3 text-base text-stone-900 outline-none transition focus:border-stone-500 dark:border-stone-600 dark:bg-stone-800 dark:text-stone-100"
             />
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="week" className="text-sm font-medium text-ink">
+            <label htmlFor="week" className="text-sm font-medium text-stone-800 dark:text-stone-200">
               Week
             </label>
             <input
@@ -351,22 +351,22 @@ export default function AdminPanel() {
               value={draft.week}
               onChange={(event) => updateField("week", event.target.value)}
               placeholder="Week 12, 2026"
-              className="w-full rounded-2xl border border-line bg-paper px-4 py-3 text-base text-ink outline-none transition focus:border-accent"
+              className="w-full rounded-xl border border-stone-300 bg-stone-50 px-4 py-3 text-base text-stone-900 outline-none transition focus:border-stone-500 dark:border-stone-600 dark:bg-stone-800 dark:text-stone-100"
             />
           </div>
 
-          <label className="flex items-center gap-3 rounded-2xl border border-line bg-paper px-4 py-4 text-sm text-ink">
+          <label className="flex items-center gap-3 rounded-xl border border-stone-300 bg-stone-50 px-4 py-4 text-sm text-stone-800 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-200">
             <input
               type="checkbox"
               checked={draft.isFeatured}
               onChange={(event) => updateField("isFeatured", event.target.checked)}
-              className="h-4 w-4 rounded border-line text-accent focus:ring-accent"
+              className="h-4 w-4 rounded border-stone-400 text-stone-800 focus:ring-stone-500 dark:border-stone-600 dark:text-stone-200 dark:focus:ring-stone-400"
             />
             Mark this post as the featured story
           </label>
 
           <div className="space-y-2">
-            <label htmlFor="thisWeek" className="text-sm font-medium text-ink">
+            <label htmlFor="thisWeek" className="text-sm font-medium text-stone-800 dark:text-stone-200">
               This week in AI
             </label>
             <textarea
@@ -374,12 +374,12 @@ export default function AdminPanel() {
               rows={5}
               value={draft.thisWeek}
               onChange={(event) => updateField("thisWeek", event.target.value)}
-              className="w-full rounded-3xl border border-line bg-paper px-4 py-4 text-base text-ink outline-none transition focus:border-accent"
+              className="w-full rounded-2xl border border-stone-300 bg-stone-50 px-4 py-4 text-base text-stone-900 outline-none transition focus:border-stone-500 dark:border-stone-600 dark:bg-stone-800 dark:text-stone-100"
             />
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="idea" className="text-sm font-medium text-ink">
+            <label htmlFor="idea" className="text-sm font-medium text-stone-800 dark:text-stone-200">
               One idea that matters
             </label>
             <textarea
@@ -387,17 +387,17 @@ export default function AdminPanel() {
               rows={5}
               value={draft.idea}
               onChange={(event) => updateField("idea", event.target.value)}
-              className="w-full rounded-3xl border border-line bg-paper px-4 py-4 text-base text-ink outline-none transition focus:border-accent"
+              className="w-full rounded-2xl border border-stone-300 bg-stone-50 px-4 py-4 text-base text-stone-900 outline-none transition focus:border-stone-500 dark:border-stone-600 dark:bg-stone-800 dark:text-stone-100"
             />
           </div>
 
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <label className="text-sm font-medium text-ink">Signals</label>
+              <label className="text-sm font-medium text-stone-800 dark:text-stone-200">Signals</label>
               <button
                 type="button"
                 onClick={addSignalField}
-                className="text-sm font-medium text-accent transition hover:text-ink"
+                className="text-sm font-medium text-stone-600 transition hover:text-stone-900 dark:text-stone-400 dark:hover:text-white"
               >
                 Add signal
               </button>
@@ -408,13 +408,13 @@ export default function AdminPanel() {
                 <input
                   value={signal}
                   onChange={(event) => updateSignal(index, event.target.value)}
-                  className="w-full rounded-2xl border border-line bg-paper px-4 py-3 text-base text-ink outline-none transition focus:border-accent"
+                  className="w-full rounded-xl border border-stone-300 bg-stone-50 px-4 py-3 text-base text-stone-900 outline-none transition focus:border-stone-500 dark:border-stone-600 dark:bg-stone-800 dark:text-stone-100"
                   placeholder={`Signal ${index + 1}`}
                 />
                 <button
                   type="button"
                   onClick={() => removeSignalField(index)}
-                  className="rounded-full border border-line px-4 py-3 text-sm font-medium text-muted transition hover:bg-paper hover:text-ink"
+                  className="rounded-full border border-stone-300 px-4 py-3 text-sm font-medium text-stone-500 transition hover:bg-stone-100 hover:text-stone-900 dark:border-stone-700 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-white"
                 >
                   Remove
                 </button>
@@ -423,13 +423,13 @@ export default function AdminPanel() {
           </div>
 
           {errorMessage ? (
-            <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            <div className="rounded-2xl border border-stone-300 bg-stone-100 px-4 py-3 text-sm text-stone-700 dark:border-stone-600 dark:bg-stone-800 dark:text-stone-300">
               {errorMessage}
             </div>
           ) : null}
 
           {statusMessage ? (
-            <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+            <div className="rounded-2xl border border-stone-300 bg-stone-100 px-4 py-3 text-sm text-stone-700 dark:border-stone-600 dark:bg-stone-800 dark:text-stone-300">
               {statusMessage}
             </div>
           ) : null}
@@ -444,25 +444,25 @@ export default function AdminPanel() {
               !draft.idea.trim() ||
               !hasSignals
             }
-            className="inline-flex w-full items-center justify-center rounded-full bg-ink px-6 py-4 text-sm font-medium text-white transition hover:bg-black disabled:cursor-not-allowed disabled:opacity-70"
+            className="inline-flex w-full items-center justify-center rounded-full bg-stone-900 px-6 py-4 text-sm font-medium text-white transition hover:bg-stone-800 disabled:cursor-not-allowed disabled:opacity-70 dark:bg-white dark:text-black dark:hover:opacity-90"
           >
             {isSubmitting ? "Publishing..." : "Publish article"}
           </button>
         </form>
       </section>
 
-      <section className="rounded-[32px] border border-line bg-white p-8 shadow-card sm:p-10">
+      <section className="rounded-2xl border border-stone-200 bg-white p-8 dark:border-stone-700 dark:bg-stone-900 sm:p-10">
         <div className="flex items-center justify-between gap-4">
           <div>
-            <h2 className="text-2xl font-semibold tracking-tight text-ink">Published posts</h2>
-            <p className="mt-2 text-sm leading-6 text-muted">
+            <h2 className="text-2xl font-semibold tracking-tight text-stone-900 dark:text-stone-100">Published posts</h2>
+            <p className="mt-2 text-sm leading-relaxed text-stone-600 dark:text-stone-400">
               Review the archive and remove posts when needed.
             </p>
           </div>
           <button
             type="button"
             onClick={loadPosts}
-            className="inline-flex items-center justify-center rounded-full border border-line px-5 py-3 text-sm font-medium text-ink transition hover:bg-paper"
+            className="inline-flex items-center justify-center rounded-full border border-stone-300 px-5 py-3 text-sm font-medium text-stone-800 transition hover:bg-stone-100 dark:border-stone-700 dark:text-stone-200 dark:hover:bg-stone-800"
           >
             {isRefreshing ? "Refreshing..." : "Refresh"}
           </button>
@@ -470,7 +470,7 @@ export default function AdminPanel() {
 
         <div className="mt-8 space-y-4">
           {posts.length === 0 ? (
-            <div className="rounded-[24px] border border-dashed border-line bg-paper/70 p-8 text-center text-muted">
+            <div className="rounded-2xl border border-dashed border-stone-300 bg-stone-50 p-8 text-center text-stone-500 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-400">
               No posts yet.
             </div>
           ) : null}
@@ -478,19 +478,19 @@ export default function AdminPanel() {
           {posts.map((post) => (
             <article
               key={post._id}
-              className="flex flex-col gap-4 rounded-[24px] border border-line bg-paper/70 p-5 sm:flex-row sm:items-start sm:justify-between"
+              className="flex flex-col gap-4 rounded-2xl border border-stone-300 bg-stone-50 p-5 dark:border-stone-700 dark:bg-stone-800 sm:flex-row sm:items-start sm:justify-between"
             >
               <div>
-                <div className="text-sm font-medium text-muted">{post.week}</div>
-                <h3 className="mt-2 text-xl font-semibold tracking-tight text-ink">
+                <div className="text-sm font-medium text-stone-500 dark:text-stone-400">{post.week}</div>
+                <h3 className="mt-2 text-xl font-semibold tracking-tight text-stone-900 dark:text-stone-100">
                   {post.title}
                 </h3>
                 {post.isFeatured ? (
-                  <div className="mt-3 inline-flex rounded-full border border-line bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
+                  <div className="mt-3 inline-flex rounded-full border border-stone-300 bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-stone-600 dark:border-stone-600 dark:bg-stone-900 dark:text-stone-300">
                     Featured
                   </div>
                 ) : null}
-                <div className="mt-3 text-sm text-muted">{formatDate(post.createdAt)}</div>
+                <div className="mt-3 text-sm text-stone-500 dark:text-stone-400">{formatDate(post.createdAt)}</div>
               </div>
               <button
                 type="button"

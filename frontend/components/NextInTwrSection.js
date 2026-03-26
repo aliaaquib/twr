@@ -26,11 +26,11 @@ export default function NextInTwrSection() {
   };
 
   return (
-    <section className="mt-24 border-t border-white/5 pt-8">
+    <section className="mt-24 border-t border-stone-200 pt-8 dark:border-stone-800">
       <div className="mx-auto max-w-3xl space-y-6 text-center">
         <div className="space-y-3">
-          <h2 className="text-3xl font-semibold tracking-tight text-white">✍️ What&apos;s next in TWR</h2>
-          <p className="text-base text-white/55">Topics we&apos;re exploring next.</p>
+          <h2 className="text-3xl font-semibold tracking-tight text-stone-900 dark:text-stone-100">✍️ What&apos;s next in TWR</h2>
+          <p className="text-base text-stone-600 dark:text-stone-400">Topics we&apos;re exploring next.</p>
         </div>
 
         <div className="flex flex-wrap justify-center gap-3">
@@ -38,7 +38,7 @@ export default function NextInTwrSection() {
             <button
               key={topic}
               type="button"
-              className="rounded-full border border-gray-700 bg-transparent px-4 py-2 text-sm text-white/75 transition hover:cursor-pointer hover:bg-white/10"
+              className="rounded-full border border-stone-300 bg-transparent px-4 py-2 text-sm text-stone-700 transition hover:cursor-pointer hover:bg-stone-100 dark:border-stone-700 dark:text-stone-300 dark:hover:bg-stone-800/40"
             >
               {topic}
             </button>
@@ -46,7 +46,7 @@ export default function NextInTwrSection() {
         </div>
 
         <div className="space-y-4">
-          <p className="text-sm font-normal text-white/48">
+          <p className="text-sm font-normal text-stone-500 dark:text-stone-400">
             Want us to explain something? Suggest a topic.
           </p>
 
@@ -56,11 +56,11 @@ export default function NextInTwrSection() {
               value={suggestion}
               onChange={(event) => setSuggestion(event.target.value)}
               placeholder="e.g. How do AI chips work?"
-              className="w-full rounded-md border border-gray-700 bg-[#111] px-4 py-2 text-sm text-white outline-none transition placeholder:text-white/25 focus:border-white/30"
+              className="w-full rounded-md border border-stone-300 bg-white px-4 py-2 text-sm text-stone-900 outline-none transition placeholder:text-stone-400 focus:border-stone-400 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-100 dark:placeholder:text-stone-500"
             />
             <button
               type="submit"
-              className="shrink-0 rounded-md border border-gray-700 px-3 py-2 text-sm text-white/70 transition hover:bg-white/10 hover:text-white"
+              className="shrink-0 rounded-md border border-stone-300 px-3 py-2 text-sm text-stone-700 transition hover:bg-stone-100 hover:text-stone-950 dark:border-stone-700 dark:text-stone-300 dark:hover:bg-stone-800/40 dark:hover:text-white"
             >
               Send
             </button>

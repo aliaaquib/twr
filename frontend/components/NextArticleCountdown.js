@@ -87,5 +87,5 @@ export default function NextArticleCountdown({
     return () => window.clearInterval(intervalId);
   }, [latestWeeklyArticleDate, latestWeeklyArticleWeek]);
 
-  return <p className="text-sm text-white/42">{label}</p>;
+  return <p className="text-sm text-stone-500 dark:text-stone-400">{label}</p>;
 }
