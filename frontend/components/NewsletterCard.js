@@ -19,23 +19,23 @@ export default function NewsletterCard() {
   };
 
   return (
-    <section className="rounded-xl border border-stone-200 bg-stone-50 p-4 dark:border-stone-800 dark:bg-[linear-gradient(180deg,rgba(34,30,27,0.98),rgba(24,21,19,0.98))] dark:ring-1 dark:ring-inset dark:ring-stone-800/80">
-      <h2 className="text-xl font-semibold tracking-tight text-stone-900 dark:text-stone-100">Subscribe</h2>
+    <section className="rounded-xl border border-stone-200 bg-stone-50 p-3.5 dark:border-stone-800 dark:bg-[linear-gradient(180deg,rgba(34,30,27,0.98),rgba(24,21,19,0.98))] dark:ring-1 dark:ring-inset dark:ring-stone-800/80 sm:p-4">
+      <h2 className="text-lg font-semibold tracking-tight text-stone-900 dark:text-stone-100 sm:text-xl">Subscribe</h2>
       <p className="mt-2 text-sm leading-relaxed text-stone-600 dark:text-stone-400">
         A simple weekly note on product shifts, models, and the ideas worth paying attention to.
       </p>
 
-      <form onSubmit={handleSubmit} className="mt-6 space-y-3">
+      <form onSubmit={handleSubmit} className="mt-5 space-y-2.5 sm:mt-6 sm:space-y-3">
         <input
           type="email"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           placeholder="Email address"
-          className="w-full rounded-xl border border-stone-300 bg-white px-4 py-3 text-sm text-stone-900 outline-none transition placeholder:text-stone-400 focus:border-stone-400 dark:border-stone-700 dark:bg-stone-950/80 dark:text-stone-100 dark:placeholder:text-stone-500"
+          className="w-full rounded-xl border border-stone-300 bg-white px-3 py-2.5 text-sm text-stone-900 outline-none transition placeholder:text-stone-400 focus:border-stone-400 dark:border-stone-700 dark:bg-stone-950/80 dark:text-stone-100 dark:placeholder:text-stone-500 sm:px-4 sm:py-3"
         />
         <button
           type="submit"
-          className="inline-flex w-full items-center justify-center rounded-full bg-white px-5 py-3 text-sm font-medium text-black transition hover:opacity-90"
+          className="inline-flex w-full items-center justify-center rounded-full bg-white px-5 py-2.5 text-sm font-medium text-black transition hover:opacity-90 sm:py-3"
         >
           Subscribe
         </button>

@@ -47,15 +47,15 @@ export default function TodaysFactCard({ posts }) {
   const relatedPost = posts.find((post) => post.title === fact.relatedTitle) || posts[0] || null;
 
   return (
-    <section className="rounded-xl border border-stone-200 bg-stone-50 p-4 dark:border-stone-800 dark:bg-[linear-gradient(180deg,rgba(34,30,27,0.98),rgba(24,21,19,0.98))] dark:ring-1 dark:ring-inset dark:ring-stone-800/80">
-      <h2 className="text-xl font-semibold tracking-tight text-stone-900 dark:text-stone-100">🧠 today&apos;s fact</h2>
-      <h3 className="mt-4 text-base font-medium leading-relaxed text-stone-900 dark:text-stone-100">{fact.title}</h3>
-      <p className="mt-3 text-sm leading-relaxed text-stone-600 dark:text-stone-400">{fact.description}</p>
+    <section className="rounded-xl border border-stone-200 bg-stone-50 p-3.5 dark:border-stone-800 dark:bg-[linear-gradient(180deg,rgba(34,30,27,0.98),rgba(24,21,19,0.98))] dark:ring-1 dark:ring-inset dark:ring-stone-800/80 sm:p-4">
+      <h2 className="text-lg font-semibold tracking-tight text-stone-900 dark:text-stone-100 sm:text-xl">🧠 today&apos;s fact</h2>
+      <h3 className="mt-3 text-sm font-medium leading-relaxed text-stone-900 dark:text-stone-100 sm:mt-4 sm:text-base">{fact.title}</h3>
+      <p className="mt-2.5 text-sm leading-relaxed text-stone-600 dark:text-stone-400 sm:mt-3">{fact.description}</p>
 
       {relatedPost ? (
         <Link
           href={`/post/${relatedPost._id}`}
-          className="mt-5 inline-flex text-sm text-stone-600 transition hover:text-stone-900 dark:text-stone-400 dark:hover:text-white"
+          className="mt-4 inline-flex text-sm text-stone-600 transition hover:text-stone-900 dark:text-stone-400 dark:hover:text-white sm:mt-5"
         >
           read more: {relatedPost.title}
         </Link>
