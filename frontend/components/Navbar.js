@@ -13,11 +13,17 @@ export default function Navbar() {
           The Weekly Roundup
         </Link>
         <nav className="flex items-center gap-4 text-sm text-stone-500 dark:text-stone-400">
-          <Link href="/" className="transition hover:text-stone-900 dark:hover:text-white">
+          <Link href="/archive" className="transition hover:text-stone-900 dark:hover:text-white">
             Archive
           </Link>
-          <Link href="/admin" className="transition hover:text-stone-900 dark:hover:text-white">
-            Admin
+          <Link href="/about" className="transition hover:text-stone-900 dark:hover:text-white">
+            About
+          </Link>
+          <Link href="/graph" className="transition hover:text-stone-900 dark:hover:text-white">
+            Graph
+          </Link>
+          <Link href="/topics" className="transition hover:text-stone-900 dark:hover:text-white">
+            Topics
           </Link>
           <ThemeToggle />
         </nav>
