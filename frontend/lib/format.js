@@ -6,7 +6,7 @@ export const formatDate = (value) =>
   }).format(new Date(value));
 
 export const getPreview = (content, length = 180) => {
-  const plainText = content.replace(/\n+/g, " ").trim();
+  const plainText = String(content || "").replace(/\n+/g, " ").trim();
 
   if (plainText.length <= length) {
     return plainText;
@@ -18,6 +18,8 @@ export const getPreview = (content, length = 180) => {
 export const getReadingTime = (post) => {
   const text = [
     post?.title || "",
+    post?.excerpt || "",
+    post?.content || "",
     post?.thisWeek || "",
     post?.idea || "",
     ...(Array.isArray(post?.signals) ? post.signals : []),

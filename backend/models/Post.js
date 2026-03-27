@@ -23,6 +23,16 @@ const postSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    excerpt: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+    content: {
+      type: String,
+      trim: true,
+      default: "",
+    },
     signals: {
       type: [String],
       required: true,

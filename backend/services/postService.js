@@ -8,6 +8,8 @@ const createPost = async ({
   week,
   thisWeek,
   idea,
+  excerpt = "",
+  content = "",
   signals,
   isFeatured = false,
   isSeeded = false,
@@ -16,6 +18,8 @@ const createPost = async ({
   const trimmedWeek = week?.trim();
   const trimmedThisWeek = thisWeek?.trim();
   const trimmedIdea = idea?.trim();
+  const trimmedExcerpt = excerpt?.trim() || "";
+  const trimmedContent = content?.trim() || "";
   const normalizedSignals = Array.isArray(signals)
     ? signals.map((signal) => String(signal).trim()).filter(Boolean)
     : [];
@@ -45,6 +49,8 @@ const createPost = async ({
       week: trimmedWeek,
       thisWeek: trimmedThisWeek,
       idea: trimmedIdea,
+      excerpt: trimmedExcerpt,
+      content: trimmedContent,
       signals: normalizedSignals,
       isFeatured: featured,
       isSeeded: seeded,

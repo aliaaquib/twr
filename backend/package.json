@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "dev": "nodemon app.js",
-    "start": "node app.js"
+    "start": "node app.js",
+    "rewrite:posts": "node scripts/rewritePublishedPosts.js"
   },
   "dependencies": {
     "@google/genai": "^1.46.0",

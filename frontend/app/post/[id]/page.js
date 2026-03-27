@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import ArticleContent from "@/components/ArticleContent";
 import Footer from "@/components/Footer";
 import PostSubscribeSection from "@/components/PostSubscribeSection";
 import { fetchFeaturedPost, fetchPost, fetchPosts } from "@/lib/api";
@@ -70,28 +71,7 @@ export default async function PostPage({ params }) {
           </h1>
           <div className="mt-4 text-sm text-stone-500 dark:text-stone-400">{formatDate(post.createdAt)}</div>
 
-          <div className="mt-12 space-y-12">
-            <section className="space-y-4">
-              <h2 className="text-2xl font-semibold tracking-tight text-stone-900 dark:text-stone-100">This week in AI</h2>
-              <p className="text-lg leading-relaxed text-stone-700 dark:text-stone-300">{post.thisWeek}</p>
-            </section>
-
-            <section className="space-y-4">
-              <h2 className="text-2xl font-semibold tracking-tight text-stone-900 dark:text-stone-100">
-                One idea that matters
-              </h2>
-              <p className="text-lg leading-relaxed text-stone-700 dark:text-stone-300">{post.idea}</p>
-            </section>
-
-            <section className="space-y-4">
-              <h2 className="text-2xl font-semibold tracking-tight text-stone-900 dark:text-stone-100">Signals</h2>
-              <ul className="space-y-3 pl-5 text-lg leading-relaxed text-stone-700 marker:text-stone-500 dark:text-stone-300 dark:marker:text-stone-400">
-                {post.signals.map((signal, index) => (
-                  <li key={`${post._id}-signal-${index}`}>{signal}</li>
-                ))}
-              </ul>
-            </section>
-          </div>
+          <ArticleContent content={post.content} fallbackPost={post} />
         </article>
 
         <section className="space-y-3">

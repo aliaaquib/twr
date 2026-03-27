@@ -15,7 +15,7 @@ export default function FeaturedCard({ post }) {
           {post.title}
         </h2>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-stone-600 dark:text-stone-400 sm:mt-5 sm:text-lg">
-          {getPreview(post.thisWeek, 220)}
+          {getPreview(post.excerpt || post.thisWeek, 220)}
         </p>
         <div className="mt-5 flex flex-wrap items-center gap-3 text-xs text-stone-500 dark:text-stone-400 sm:mt-6 sm:gap-4 sm:text-sm">
           <span>{formatDate(post.createdAt)}</span>

@@ -19,52 +19,92 @@ const getClient = () => {
   return client;
 };
 
-const buildPrompt = (week) => `You are an AI editor writing for a premium publication.
+const buildPrompt = ({ week, topic, existingPost }) => `You are an expert technical writer and educator writing for a premium educational publication.
 
-Write a weekly AI editorial.
+Write a high-quality AI explainer article.
 
-Format:
+Style rules:
+- Do not write like an AI assistant
+- Do not summarize mechanically
+- Write like a human who deeply understands the topic
+- Clear, structured, engaging
+- Use real-world examples constantly (Netflix, Spotify, Amazon, YouTube, GitHub Copilot, ChatGPT, Claude when relevant)
+- Mix intuition with technical depth
+- Avoid hype, fluff, and generic statements
+- Every sentence must add value
 
-Title
+Mandatory article structure:
+1. Title
+2. Hook (2-3 short paragraphs with real-world context)
+3. Core concept
+4. Clear short sections with strong headings
+5. Real examples throughout
+6. At least 2 clean ASCII visual blocks
+7. Strong ending
 
-Week:
+Formatting rules:
+- Write the article body in Markdown
+- Use "## " for section headings
+- Use short paragraphs
+- Use bullet lists when useful
+- Wrap ASCII diagrams in fenced code blocks
+- Aim for a 5-8 minute read
 
-1. This week in AI:
-(real shift, not news)
+Topic:
+${topic}
 
-2. One idea that matters:
-(deep insight)
+Editorial week:
+${week}
 
-3. Signals:
-(3-5 sharp observations)
+Existing angle to preserve if useful:
+${JSON.stringify(existingPost || {}, null, 2)}
 
-Rules:
-- No fluff
-- Clear thinking
-- Concise
-- Feels human
+Return plain text using this exact tagged format:
+TITLE: <title>
+WEEK: ${week}
+EXCERPT:
+<<<
+<2 sentence preview>
+>>>
+THIS_WEEK:
+<<<
+<short homepage summary>
+>>>
+IDEA:
+<<<
+<single sharp takeaway paragraph>
+>>>
+SIGNALS:
+- <signal 1>
+- <signal 2>
+- <signal 3>
+CONTENT:
+<<<
+<full markdown article>
+>>>`;
 
-Return valid JSON with this exact structure:
-{
-  "title": "string",
-  "week": "${week}",
-  "thisWeek": "string",
-  "idea": "string",
-  "signals": ["string", "string", "string"]
-}
+const getTaggedSection = (text, tag) => {
+  const escapedTag = tag.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const match = text.match(new RegExp(`${escapedTag}:\\s*\\n<<<\\n([\\s\\S]*?)\\n>>>`));
+  return match?.[1]?.trim() || "";
+};
 
-Topic: Latest shifts in AI this week.`;
+const normalizeGeneratedPost = (rawText, fallbackWeek) => {
+  const title = rawText.match(/^TITLE:\s*(.+)$/m)?.[1]?.trim();
+  const week = rawText.match(/^WEEK:\s*(.+)$/m)?.[1]?.trim() || fallbackWeek;
+  const excerpt = getTaggedSection(rawText, "EXCERPT");
+  const thisWeek = getTaggedSection(rawText, "THIS_WEEK");
+  const idea = getTaggedSection(rawText, "IDEA");
+  const content = getTaggedSection(rawText, "CONTENT");
+  const signalsBlock = rawText.match(/SIGNALS:\s*\n([\s\S]*?)(?:\nCONTENT:)/)?.[1] || "";
+  const signals = signalsBlock
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => line.startsWith("- "))
+    .map((line) => line.replace(/^- /, "").trim())
+    .filter(Boolean);
 
-const normalizeGeneratedPost = (payload, fallbackWeek) => {
-  const title = payload?.title?.trim();
-  const week = payload?.week?.trim() || fallbackWeek;
-  const thisWeek = payload?.thisWeek?.trim();
-  const idea = payload?.idea?.trim();
-  const signals = Array.isArray(payload?.signals)
-    ? payload.signals.map((signal) => String(signal).trim()).filter(Boolean)
-    : [];
-
-  if (!title || !week || !thisWeek || !idea || signals.length < 3) {
+  if (!title || !week || !excerpt || !thisWeek || !idea || !content || signals.length < 3) {
     console.error("Gemini Error: Incomplete editorial payload received.");
     return null;
   }
@@ -72,8 +112,10 @@ const normalizeGeneratedPost = (payload, fallbackWeek) => {
   return {
     title,
     week,
+    excerpt,
     thisWeek,
     idea,
+    content,
     signals: signals.slice(0, 5),
   };
 };
@@ -90,7 +132,11 @@ const generateWeeklyEditorial = async (date = new Date()) => {
   try {
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
-      contents: buildPrompt(week),
+      contents: buildPrompt({
+        week,
+        topic: "Latest shifts in AI this week",
+        existingPost: null,
+      }),
     });
 
     const rawText = response.text;
@@ -100,8 +146,43 @@ const generateWeeklyEditorial = async (date = new Date()) => {
       return null;
     }
 
-    const cleaned = rawText.replace(/```json|```/g, "").trim();
-    return normalizeGeneratedPost(JSON.parse(cleaned), week);
+    return normalizeGeneratedPost(rawText.trim(), week);
+  } catch (error) {
+    console.error("Gemini Error:", error.message);
+    return null;
+  }
+};
+
+const rewritePostAsExplainer = async (post) => {
+  const ai = getClient();
+
+  if (!ai) {
+    return null;
+  }
+
+  try {
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: buildPrompt({
+        week: post.week,
+        topic: post.title,
+        existingPost: {
+          title: post.title,
+          thisWeek: post.thisWeek,
+          idea: post.idea,
+          signals: post.signals,
+        },
+      }),
+    });
+
+    const rawText = response.text;
+
+    if (!rawText) {
+      console.error("Gemini Error: Empty response body while rewriting post.");
+      return null;
+    }
+
+    return normalizeGeneratedPost(rawText.trim(), post.week);
   } catch (error) {
     console.error("Gemini Error:", error.message);
     return null;
@@ -110,4 +191,5 @@ const generateWeeklyEditorial = async (date = new Date()) => {
 
 module.exports = {
   generateWeeklyEditorial,
+  rewritePostAsExplainer,
 };
