@@ -3,7 +3,12 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 
-const { runStartupAutoWriterCheck, startWeeklyAutoWriter } = require("./services/autoWriterService");
+const {
+  runStartupAutoWriterCheck,
+  runStartupFeaturedRotationCheck,
+  startDailyFeaturedRotation,
+  startWeeklyAutoWriter,
+} = require("./services/autoWriterService");
 const connectDatabase = require("./utils/db");
 const postRoutes = require("./routes/postRoutes");
 const { seedInitialPosts } = require("./services/seedService");
@@ -42,6 +47,11 @@ const startServer = async () => {
 
   app.listen(port, () => {
     console.log(`Weekly Roundup backend listening on http://localhost:${port}`);
+
+    startDailyFeaturedRotation();
+    runStartupFeaturedRotationCheck().catch((error) => {
+      console.error("Startup featured rotation check failed:", error);
+    });
 
     if (process.env.ENABLE_AUTO_WRITER === "true") {
       startWeeklyAutoWriter();

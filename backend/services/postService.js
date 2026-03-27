@@ -65,7 +65,7 @@ const createPost = async ({
 };
 
 const getAllPosts = async () => {
-  return Post.find({ isFeatured: false }).sort({ createdAt: -1 }).lean();
+  return Post.find({}).sort({ createdAt: -1 }).lean();
 };
 
 const getFeaturedPost = async () => {

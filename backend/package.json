@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "nodemon app.js",
     "start": "node app.js",
-    "rewrite:posts": "node scripts/rewritePublishedPosts.js"
+    "rewrite:posts": "node scripts/rewritePublishedPosts.js",
+    "fill:past-weeks": "node scripts/fillPastWeeks.js",
+    "fill:homepage-timeline": "node scripts/fillHomepageTimeline.js"
   },
   "dependencies": {
     "@google/genai": "^1.46.0",

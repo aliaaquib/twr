@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 
 import { formatDate } from "@/lib/format";
+import { dedupePosts } from "@/lib/posts";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const ADMIN_STORAGE_KEY = "weekly-roundup-admin-password";
@@ -75,18 +76,11 @@ export default function AdminPanel() {
     setIsRefreshing(true);
 
     try {
-      const [featuredResponse, postsResponse] = await Promise.all([
-        fetch(`${getApiUrl()}/posts/featured`, {
-          cache: "no-store",
-        }),
-        fetch(`${getApiUrl()}/posts`, {
-          cache: "no-store",
-        }),
-      ]);
-
-      const featured = await parseResponse(featuredResponse);
+      const postsResponse = await fetch(`${getApiUrl()}/posts`, {
+        cache: "no-store",
+      });
       const weeklyPosts = await parseResponse(postsResponse);
-      const combined = [featured, ...(Array.isArray(weeklyPosts) ? weeklyPosts : [])].filter(Boolean);
+      const combined = dedupePosts(Array.isArray(weeklyPosts) ? weeklyPosts : []);
       setPosts(combined);
     } catch {
       setPosts([]);

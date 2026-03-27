@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import PostSubscribeSection from "@/components/PostSubscribeSection";
 import { fetchFeaturedPost, fetchPost, fetchPosts } from "@/lib/api";
 import { formatDate } from "@/lib/format";
+import { dedupePosts } from "@/lib/posts";
 
 export const dynamic = "force-dynamic";
 
@@ -39,7 +40,9 @@ export default async function PostPage({ params }) {
     ]);
 
     post = currentPost;
-    relatedPosts = [featuredPost, ...posts].filter((item) => item && item._id !== currentPost._id).slice(0, 3);
+    relatedPosts = dedupePosts([featuredPost, ...posts].filter(Boolean))
+      .filter((item) => item._id !== currentPost._id)
+      .slice(0, 3);
   } catch (error) {
     if (error.message === "Post not found.") {
       notFound();

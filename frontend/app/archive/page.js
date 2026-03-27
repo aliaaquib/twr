@@ -1,6 +1,7 @@
 import ArchiveIndex from "@/components/ArchiveIndex";
 import Footer from "@/components/Footer";
 import { fetchFeaturedPost, fetchPosts } from "@/lib/api";
+import { dedupePosts } from "@/lib/posts";
 
 export const dynamic = "force-dynamic";
 
@@ -11,8 +12,7 @@ export const metadata = {
 
 export default async function ArchivePage() {
   const [featuredPost, posts] = await Promise.all([fetchFeaturedPost(), fetchPosts()]);
-  const allPosts = [featuredPost, ...posts]
-    .filter(Boolean)
+  const allPosts = dedupePosts([featuredPost, ...posts].filter(Boolean))
     .sort((left, right) => new Date(right.createdAt) - new Date(left.createdAt));
 
   return (

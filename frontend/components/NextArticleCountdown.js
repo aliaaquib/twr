@@ -2,58 +2,76 @@
 
 import { useEffect, useState } from "react";
 
-const TARGET_UTC_DAY = 3;
-const TARGET_UTC_HOUR = 17;
-const TARGET_UTC_MINUTE = 42;
+const TIMEZONE = "Asia/Bishkek";
+const TARGET_LOCAL_DAY = 6;
+const TARGET_LOCAL_HOUR = 10;
+const TARGET_LOCAL_MINUTE = 0;
 const ZERO_LABEL = "new article coming in 0 days : 00 : 00 : 00";
 
-const getEditorialWeekLabel = (date = new Date()) => {
-  const target = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
-  const dayNumber = target.getUTCDay() || 7;
-
-  target.setUTCDate(target.getUTCDate() + 4 - dayNumber);
-
-  const yearStart = new Date(Date.UTC(target.getUTCFullYear(), 0, 1));
-  const weekNumber = Math.ceil((((target - yearStart) / 86400000) + 1) / 7);
-
-  return `Week ${weekNumber}, ${target.getUTCFullYear()}`;
+const WEEKDAY_TO_INDEX = {
+  Sun: 0,
+  Mon: 1,
+  Tue: 2,
+  Wed: 3,
+  Thu: 4,
+  Fri: 5,
+  Sat: 6,
 };
 
-const getThisWeekReleaseDate = (now = new Date()) => {
-  const current = new Date(now);
-  const target = new Date(current);
+const getTimezoneParts = (date = new Date()) => {
+  const formatter = new Intl.DateTimeFormat("en-US", {
+    timeZone: TIMEZONE,
+    weekday: "short",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  });
 
-  target.setUTCHours(TARGET_UTC_HOUR, TARGET_UTC_MINUTE, 0, 0);
+  const parts = formatter.formatToParts(date);
 
-  const currentDay = current.getUTCDay();
-  const dayDifference = TARGET_UTC_DAY - currentDay;
-  target.setUTCDate(current.getUTCDate() + dayDifference);
-
-  return target;
+  return {
+    weekday: WEEKDAY_TO_INDEX[parts.find((part) => part.type === "weekday")?.value] ?? 0,
+    year: Number(parts.find((part) => part.type === "year")?.value),
+    month: Number(parts.find((part) => part.type === "month")?.value),
+    day: Number(parts.find((part) => part.type === "day")?.value),
+    hour: Number(parts.find((part) => part.type === "hour")?.value),
+    minute: Number(parts.find((part) => part.type === "minute")?.value),
+    second: Number(parts.find((part) => part.type === "second")?.value),
+  };
 };
 
-const getCountdownText = (latestWeeklyArticleDate, latestWeeklyArticleWeek) => {
-  const now = new Date();
-  const thisWeekRelease = getThisWeekReleaseDate(now);
-  const latestWeeklyArticleTime = latestWeeklyArticleDate
-    ? new Date(latestWeeklyArticleDate).getTime()
-    : 0;
-  const currentEditorialWeek = getEditorialWeekLabel(now);
-  const hasCurrentWeekArticle = latestWeeklyArticleWeek === currentEditorialWeek;
+const getNextReleaseDate = (now = new Date()) => {
+  const current = getTimezoneParts(now);
+  let daysUntilTarget = (TARGET_LOCAL_DAY - current.weekday + 7) % 7;
+  const isPastTodayRelease =
+    daysUntilTarget === 0 &&
+    (current.hour > TARGET_LOCAL_HOUR ||
+      (current.hour === TARGET_LOCAL_HOUR && current.minute >= TARGET_LOCAL_MINUTE));
 
-  if (
-    now.getTime() > thisWeekRelease.getTime() &&
-    latestWeeklyArticleTime < thisWeekRelease.getTime() &&
-    !hasCurrentWeekArticle
-  ) {
-    return ZERO_LABEL;
+  if (isPastTodayRelease) {
+    daysUntilTarget = 7;
   }
 
-  const nextRelease =
-    now.getTime() <= thisWeekRelease.getTime() && !hasCurrentWeekArticle
-      ? thisWeekRelease
-      : new Date(thisWeekRelease.getTime() + 7 * 24 * 60 * 60 * 1000);
+  return new Date(
+    Date.UTC(
+      current.year,
+      current.month - 1,
+      current.day + daysUntilTarget,
+      TARGET_LOCAL_HOUR - 6,
+      TARGET_LOCAL_MINUTE,
+      0,
+      0
+    )
+  );
+};
 
+const getCountdownText = () => {
+  const now = new Date();
+  const nextRelease = getNextReleaseDate(now);
   const diff = nextRelease.getTime() - now.getTime();
 
   if (diff <= 0) {
@@ -78,10 +96,10 @@ export default function NextArticleCountdown({
   const [label, setLabel] = useState("new article coming in -- days : -- : -- : --");
 
   useEffect(() => {
-    setLabel(getCountdownText(latestWeeklyArticleDate, latestWeeklyArticleWeek));
+    setLabel(getCountdownText());
 
     const intervalId = window.setInterval(() => {
-      setLabel(getCountdownText(latestWeeklyArticleDate, latestWeeklyArticleWeek));
+      setLabel(getCountdownText());
     }, 1000);
 
     return () => window.clearInterval(intervalId);

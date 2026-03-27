@@ -8,6 +8,7 @@ import NextArticleCountdown from "@/components/NextArticleCountdown";
 import NewsletterCard from "@/components/NewsletterCard";
 import TodaysFactCard from "@/components/TodaysFactCard";
 import { fetchFeaturedPost, fetchHotItems, fetchPosts } from "@/lib/api";
+import { dedupePosts } from "@/lib/posts";
 
 export const dynamic = "force-dynamic";
 
@@ -17,7 +18,7 @@ export default async function HomePage() {
     fetchPosts(),
     fetchHotItems(),
   ]);
-  const allPosts = [featuredPost, ...posts].filter(Boolean);
+  const allPosts = dedupePosts([featuredPost, ...posts].filter(Boolean));
 
   return (
     <div className="mx-auto max-w-7xl">

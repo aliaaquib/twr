@@ -1,5 +1,6 @@
 const { GoogleGenAI } = require("@google/genai");
 
+const { CLARIO_IDENTITY } = require("../ai/clario");
 const { formatEditorialWeek } = require("../utils/week");
 
 let client;
@@ -19,9 +20,13 @@ const getClient = () => {
   return client;
 };
 
-const buildPrompt = ({ week, topic, existingPost }) => `You are an expert technical writer and educator writing for a premium educational publication.
+const buildPrompt = ({ week, topic, existingPost }) => `
+${CLARIO_IDENTITY}
 
-Write a high-quality AI explainer article.
+TASK:
+Write a high-quality explainer article for The Weekly Roundup.
+
+Write as Clario.
 
 Style rules:
 - Do not write like an AI assistant
@@ -189,7 +194,40 @@ const rewritePostAsExplainer = async (post) => {
   }
 };
 
+const generateExplainerForTopic = async ({ week, topic, existingPost = null }) => {
+  const ai = getClient();
+
+  if (!ai) {
+    return null;
+  }
+
+  try {
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: buildPrompt({
+        week,
+        topic,
+        existingPost,
+      }),
+    });
+
+    const rawText = response.text;
+
+    if (!rawText) {
+      console.error("Gemini Error: Empty response body while generating topic explainer.");
+      return null;
+    }
+
+    return normalizeGeneratedPost(rawText.trim(), week);
+  } catch (error) {
+    console.error("Gemini Error:", error.message);
+    return null;
+  }
+};
+
 module.exports = {
+  buildPrompt,
+  generateExplainerForTopic,
   generateWeeklyEditorial,
   rewritePostAsExplainer,
 };

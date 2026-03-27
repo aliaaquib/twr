@@ -3,6 +3,7 @@ import Link from "next/link";
 import Footer from "@/components/Footer";
 import { fetchFeaturedPost, fetchPosts } from "@/lib/api";
 import { formatDate } from "@/lib/format";
+import { dedupePosts } from "@/lib/posts";
 import { groupPostsByTopic } from "@/lib/topics";
 
 export const dynamic = "force-dynamic";
@@ -14,7 +15,7 @@ export const metadata = {
 
 export default async function TopicsPage() {
   const [featuredPost, posts] = await Promise.all([fetchFeaturedPost(), fetchPosts()]);
-  const allPosts = [featuredPost, ...posts].filter(Boolean);
+  const allPosts = dedupePosts([featuredPost, ...posts].filter(Boolean));
   const groups = groupPostsByTopic(allPosts);
 
   return (
